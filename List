@@ -1,0 +1,163 @@
+#include <stdio.h>
+#include <conio.h>
+/*
+i'm just trying the function so 
+there is alot of function and we can make it with less
+*/
+/* we are useing 4 functions 
+1- display (used to create the list and handle the clicks *it's the main function)
+2- gotoPosition 
+3- getPositionToPrintEnterValue (just get the postion to print)
+4- print(just print x is pressed)
+----
+5- clickHandler **(not used becouse of issue -> changeing current possition)
+*/
+void display();
+void print (int possition);
+void gotoPosition (int x,int y);
+void getPositionToPrintEnterValue(int x,int y);
+int clickHandler(int currentPosition);
+
+
+int main (){
+	display();// the main function
+	clrscr();// clear screen
+	return 0;
+}
+
+void display (){
+	int positionOfHome=1,positionOfEdit=2,positionOfDisplay=3,positionOfExit=4;
+	int currentRow=1 ;
+// create the list
+	gotoPosition(10,positionOfHome);
+	printf("Home");
+	gotoPosition(10,positionOfEdit);
+	printf("Edit");
+	gotoPosition(10,positionOfDisplay);
+	printf("Display");
+	gotoPosition(10,positionOfExit);
+	printf("Exit");
+	gotoPosition(10,currentRow);
+// handle user clicks
+	do {
+     //	flag = clickHandler(currentRow);
+
+	char clickedKey;
+
+	clickedKey = getch();
+	if(clickedKey == 0){// extended key
+		clickedKey=getch();
+		if (clickedKey == 72){
+			currentRow =currentRow - 1 ;
+			if (currentRow==0){
+			currentRow = 4;
+			}
+		// move
+			gotoPosition(10,currentRow);
+		}
+		if (clickedKey == 80){
+			currentRow=currentRow+1;
+			if(currentRow> 4){
+			currentRow=1;
+			}
+		//move
+			gotoPosition(10,currentRow);
+		}
+    // i dont have Home or End keys .. i didn't test 71,79
+		 if (clickedKey == 71){
+			currentRow = 1;
+			gotoPosition(10,currentRow);
+		} if (clickedKey == 79){
+			currentRow = 4;
+			gotoPosition(10,currentRow);
+		}
+
+	}  //end if get the rightValue
+  else
+// normal key
+	if (clickedKey==13){
+	 if(currentRow == 4){// user press enter for exit
+   flag = 0;
+   }// end of if for exit
+	 else{
+	 getPositionToPrintEnterValue(10,currentRow); 
+   }// end else
+
+	}// end if enter
+
+	if (clickedKey==27){// user pressed esc
+	flag = 0;
+	}//end if esc
+
+
+
+	}while(flag!=0);// end loop
+
+}
+/* 
+int clickHandler (int currentPosition){
+	int flag = 1;
+	char clickedKey;
+	int row = currentPosition ;
+	clickedKey = getch();
+	if(clickedKey == 0){
+		clickedKey=getch();
+		if (clickedKey == 72){
+		gotoxy(10,10);
+		printf("currentPosition is %d",row);
+			row =row - 1 ;
+			if (row==0){
+			row = 4;
+			}
+		// move
+			gotoPosition(10,row);
+
+		}
+		if (clickedKey == 80){
+			gotoxy(20,10);
+		printf("currentPosition is %d",row);
+			row=row+1;
+			if(row > 4){
+			row=1;
+			}
+		//move
+			gotoPosition(10,currentPosition);
+		}
+		 if (clickedKey == 71){
+			currentPosition = 1;
+			gotoPosition(10,currentPosition);
+		} if (clickedKey == 79){
+			currentPosition = 4;
+			gotoPosition(10,currentPosition);
+		}
+
+	}else//end if get the rightValue
+	if (clickedKey==13){
+	 // todo: handle the print and back
+	 if(currentPosition == 4){flag = 0;}
+	 else{
+	 getPositionToPrintEnterValue(10,currentPosition);   }
+
+	}
+
+	if (clickedKey==27){
+	flag = 0;
+	}
+	return flag;
+}
+*/
+void gotoPosition (int x,int y){
+	gotoxy(x,y+20);
+}
+void getPositionToPrintEnterValue (int x , int y){
+	gotoxy(x+20,y+20);
+	print(y);
+  gotoxy(10,y+20);// back to the right position in the list
+}
+void print (int position) {
+
+	if (position == 1) {printf("Home Is Pressed");}
+	if (position == 2) {printf("Edit Is Pressed");}
+	if (position == 3) {printf("Display Is Pressed");}
+
+}
