@@ -16,6 +16,7 @@ void display();
 void print (int possition);
 void gotoPosition (int x,int y);
 void getPositionToPrintEnterValue(int x,int y);
+void clear(void);
 int clickHandler(int currentPosition);
 
 
@@ -150,6 +151,7 @@ void gotoPosition (int x,int y){
 	gotoxy(x,y+20);
 }
 void getPositionToPrintEnterValue (int x , int y){
+	clear();// clear the old printed value 
 	gotoxy(x+20,y+20);
 	print(y);
   gotoxy(10,y+20);// back to the right position in the list
@@ -160,4 +162,11 @@ void print (int position) {
 	if (position == 2) {printf("Edit Is Pressed");}
 	if (position == 3) {printf("Display Is Pressed");}
 
+}
+void clear(void){
+int x= 1;
+	for (;x<=4;x++){
+	gotoxy(x+20,x+20);
+	printf("                                               ") ;
+	}
 }
